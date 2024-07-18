@@ -1,0 +1,72 @@
+# derpy's script loader: default script collection config
+
+
+# if this script collection should automatically start up when the game starts
+# only uncomment auto_start if it is necessary to override the preference set by the user
+
+#auto_start false
+
+
+# DSL version / settings required to run this script collection
+# only uncomment require_exact_version if you need an exact version
+
+require_version 7
+#require_exact_version 9
+#require_system_access true
+
+
+# main script(s) start when the collection starts (uses main.lua if none are specified)
+# if a script ends with .lua and the file does not exist then .lur will be attempted afterwards
+
+main_script main.lua
+
+
+# optional initialization script(s) can run during the pause menu before the game starts
+# these scripts will only have access to DSL functions and game threads (such as main) will not run
+
+#init_script init.lua
+
+
+# optional pre-initialization script(s) can run very early during the game's initialization
+# these scripts will only have access to DSL functions and cannot render or have any of its threads run
+
+#pre_init_script pre_init.lua
+
+
+# it is possible to make a collection that is only meant to register game files but have no scripts
+# uncomment disable_scripts to disable normal script loading and suppress the error for having no main script
+
+#disable_scripts true
+
+
+# name of a script collection (or multiple on more lines) that must be started before this one
+# if a dependency is already running it will not be restarted but if missing then this collection will not start
+
+#require_dependency loadanim.lua
+
+
+# sometimes the name of a collection is very important so that it can be properly referenced by other mods
+# the name of the collection (determined by the file / folder name) must match require_name if it is uncommented
+
+#require_name example
+require_name SimpleTP
+
+
+# if this collection is meant to run while connected to servers uncomment this (no effect on server scripts)
+# it will keep the collection from being stopped when connecting to a server and allow control while connected
+# this is primarily meant for collections that don't affect gameplay as most servers would see that as cheating
+
+#allow_on_server true
+
+
+# register game files that should be put in a temporary IMG file (no effect on server scripts)
+# files are only registered once when the game starts regardless of if the collection is started or not
+# this whole system can disabled by the user so make sure to check if the IMG was replaced in your script if needed
+# the following fields can be uncommented to add or replace files in related IMG arhcives and you can list as many as desired
+
+#act_file file.cat
+#cuts_file file.dat
+#trigger_file file.dat
+#ide_file file.idb
+#scripts_file file.lur
+#world_file file.nft
