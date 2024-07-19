@@ -168,7 +168,8 @@ local timerDiv1000 = 0
 
 -- ------------------------- _CalculateOrientation() ------------------------ --
 
-local mouseX, mouseY = GetMouseInput()
+local MOUSE_MULT = -0.01
+local ctrlRotX, ctrlRotY = 0, 0
 local frameTime = 0
 
 -- ------------------------ _CalculateCamPosAndLook() ----------------------- --
@@ -298,18 +299,26 @@ function SimpleCustomThirdPerson:_HandleSprintFOV()
 end
 
 function SimpleCustomThirdPerson:_CalculateOrientation()
-	mouseX, mouseY = GetMouseInput()
+	-- Controller handler
+	if IsUsingJoystick(0) then
+		ctrlRotX, ctrlRotY = GetStickValue(18, 0), GetStickValue(19, 0)
+		ctrlRotX, ctrlRotY = ctrlRotX * 1.5, ctrlRotY * 1.5
+	else
+		ctrlRotX, ctrlRotY = GetMouseInput()
+		ctrlRotX, ctrlRotY = ctrlRotX * 3 * MOUSE_MULT, ctrlRotY * 3 * MOUSE_MULT
+	end
+
 	frameTime = GetFrameTime()
 
 	if self.useInvertedControlX then
-		mouseX = -mouseX
+		ctrlRotX = -ctrlRotX
 	end
 	if self.useInvertedControlY then
-		mouseY = -mouseY
+		ctrlRotY = -ctrlRotY
 	end
 
-	self.yaw = self.yaw - mouseX * (self.sensitivity * 0.1) * frameTime * 0.5
-	self.pitch = self.pitch - mouseY * (self.sensitivity * 0.1) * frameTime * 0.5
+	self.yaw = self.yaw + ctrlRotX * self.sensitivity * frameTime
+	self.pitch = self.pitch + ctrlRotY * self.sensitivity * frameTime
 
 	self.yaw = UTIL.FixRadians(self.yaw)
 	self.pitch = UTIL.Clamp(self.pitch, -self._maxPitch, self._maxPitch)
