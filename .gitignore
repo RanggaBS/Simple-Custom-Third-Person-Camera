@@ -1,0 +1,7 @@
+# Developer stuff
+._DEV
+.vscode
+
+# Types for type hint
+types/bully-native.lua
+types/dsl.lua
